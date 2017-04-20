@@ -9,9 +9,9 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Dmitry Zuev']
   spec.email         = ['d.zuev@rambler-co.ru']
 
-  spec.summary       = %q{Module for the 'fog' gem to support JFrog Artifactory.}
-  spec.description   = %q{This library can be used as a module for `fog` or as standalone provider
-                          to use the JFrog Artifactory in applications.}
+  spec.summary       = "Module for the 'fog' gem to support JFrog Artifactory."
+  spec.description   = "This library can be used as a module for `fog` or as standalone provider
+                        to use the JFrog Artifactory in applications."
   spec.homepage      = 'https://github.com/dmitryzuev/fog-artifactory'
   spec.license       = 'MIT'
 
