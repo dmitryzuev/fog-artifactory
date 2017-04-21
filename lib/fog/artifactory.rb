@@ -1,6 +1,6 @@
-require 'fog/artifactory/version'
 require 'fog/core'
 require 'fog/json'
+require 'fog/artifactory/version'
 require 'artifactory'
 
 module Fog

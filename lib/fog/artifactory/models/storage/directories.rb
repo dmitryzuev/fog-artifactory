@@ -8,11 +8,15 @@ module Fog
         model Fog::Storage::Artifactory::Directory
 
         def all
-          # TODO: implement
+          data = service.client.get('/api/repositories')
+          load(data)
         end
 
-        def get(key, options = {})
-          # TODO: implement
+        def get(key, _options = {})
+          data = service.client.get("/api/repositories/#{key}")
+          new(key: data['key'])
+        rescue Artifactory::Error::HTTPError => _e
+          nil
         end
       end
     end
