@@ -37,13 +37,11 @@ module Fog
           requires :directory, :key
           service.client.delete(attributes[:download_uri])
           true
-        rescue Error::HTTPError
-          false
         end
 
         def save(_options = {})
           requires :body, :directory, :key
-          endpoint = ::File.join(attributes[:repo], attributes[:key])
+          endpoint = ::File.join(attributes[:directory].key, attributes[:key])
 
           service.client.put(endpoint, attributes[:body])
           true
@@ -55,8 +53,14 @@ module Fog
         end
         alias_method :url, :public_url
 
-        # def url
-        #   # TODO: implement
+        def download_uri
+          return attributes[:download_uri] if attributes[:download_uri].present?
+          requires :directory, :key
+          ::File.join(service.client.endpoint, attributes[:directory].key, attributes[:key])
+        end
+
+        #   puts attributes[:directory].key
+        #   URI.join(service.client.endpoint, attributes[:directory].key, attributes[:key]).to_s
         # end
       end
     end
