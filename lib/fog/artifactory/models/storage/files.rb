@@ -9,8 +9,21 @@ module Fog
 
         attribute :directory
 
-        def get(key, options = {}, &block)
-          # TODO: implement
+        def all(options = {})
+          requires :directory
+          options = options.reject { |_key, value| value.nil? || value.to_s.empty? }
+          merge_attributes(options)
+          load(service.client.get('/api/search/artifact', name: '.*', repos: directory.key)['results'].map do |artifact|
+            path = URI.parse(artifact['uri']).path
+            endpoint_path = URI.parse(service.client.endpoint).path
+            path.slice!(endpoint_path)
+            service.client.get(path)
+          end)
+        end
+
+        def get(key, _options = {}, &_block)
+          requires :directory
+          new(service.client.get("/api/storage/#{directory.key}#{key}"))
         end
 
         def head(key, options = {})
@@ -18,7 +31,8 @@ module Fog
         end
 
         def new(attributes = {})
-          # TODO: implement
+          requires :directory
+          super({ directory: directory }.merge(attributes))
         end
       end
     end
