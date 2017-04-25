@@ -35,7 +35,7 @@ module Fog
 
         def destroy
           requires :directory, :key
-          service.client.delete(attributes[:download_uri])
+          service.client.delete(download_uri)
           true
         end
 
@@ -49,7 +49,7 @@ module Fog
 
         def public_url
           requires :directory, :key
-          self.download_uri
+          download_uri
         end
         alias_method :url, :public_url
 
@@ -58,10 +58,6 @@ module Fog
           requires :directory, :key
           ::File.join(service.client.endpoint, attributes[:directory].key, attributes[:key])
         end
-
-        #   puts attributes[:directory].key
-        #   URI.join(service.client.endpoint, attributes[:directory].key, attributes[:key]).to_s
-        # end
       end
     end
   end
